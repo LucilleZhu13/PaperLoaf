@@ -1,0 +1,102 @@
+:root {
+  --font-ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-read: Charter, "Bitstream Charter", "Iowan Old Style", Georgia, serif;
+
+  --bg: #f7f7f9;
+  --surface: #ffffff;
+  --panel: #eef0f3;
+  --panel-2: #e7e9ee;
+  --border: #dfe1e7;
+  --text: #1b1d23;
+  --muted: #6a707c;
+  --accent: #3b5bdb;
+  --accent-soft: #e7ecfd;
+  /* solid — blended onto the page with mix-blend-mode: multiply */
+  --highlight: #ffe07a;
+  --shadow: 0 1px 2px rgba(20, 22, 30, 0.06), 0 8px 24px rgba(20, 22, 30, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131419;
+    --surface: #1c1e24;
+    --panel: #202229;
+    --panel-2: #262931;
+    --border: #333642;
+    --text: #e6e7ec;
+    --muted: #9096a2;
+    --accent: #8098f7;
+    --accent-soft: #23283a;
+    --highlight: #f0cf66;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.45);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #131419;
+  --surface: #1c1e24;
+  --panel: #202229;
+  --panel-2: #262931;
+  --border: #333642;
+  --text: #e6e7ec;
+  --muted: #9096a2;
+  --accent: #8098f7;
+  --accent-soft: #23283a;
+  --highlight: #f0cf66;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---- pdf.js text layer (selection + anchoring) ---- */
+.textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  opacity: 1;
+  line-height: 1;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  z-index: 2;
+}
+
+.textLayer span,
+.textLayer br {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0 0;
+}
+
+.textLayer span.markedContent {
+  top: 0;
+  height: 0;
+}
+
+.textLayer ::selection {
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+}

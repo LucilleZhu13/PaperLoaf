@@ -1,0 +1,35 @@
+# Copy to config.yaml and edit. config.yaml is git-ignored.
+#
+# Paper Reader is model-agnostic. Point each task at whatever model you like —
+# a hosted API, or a local OpenAI-compatible endpoint (Ollama, LM Studio, vLLM).
+# Everything is routed through LiteLLM, so `model` uses LiteLLM's naming:
+#   openai/gpt-4o-mini, anthropic/claude-sonnet-5, openai/<name> + api_base for
+#   any OpenAI-compatible server, ollama/<name>, etc.
+
+models:
+  # Chat with the paper. Needs the most judgment.
+  chat:
+    model: openai/gpt-4o-mini
+  # One-shot generation at ingest: one-liner, per-section summaries, glossary, questions.
+  summarize:
+    model: openai/gpt-4o-mini
+  # Short lookups: on-demand term definitions.
+  define:
+    model: openai/gpt-4o-mini
+
+# Embeddings. "local" runs on CPU with no API key (fastembed / BGE-small, 384-dim).
+# Switch to a provider by setting `backend: litellm` and a `model:`.
+embeddings:
+  backend: local
+  local_model: BAAI/bge-small-en-v1.5
+  # backend: litellm
+  # model: openai/text-embedding-3-small
+
+# Provider credentials. Prefer environment variables; values here override them.
+# Only the providers you actually reference above need an entry.
+providers:
+  openai:
+    api_key_env: OPENAI_API_KEY
+    # api_base: http://localhost:11434/v1   # e.g. Ollama / LM Studio
+  anthropic:
+    api_key_env: ANTHROPIC_API_KEY
